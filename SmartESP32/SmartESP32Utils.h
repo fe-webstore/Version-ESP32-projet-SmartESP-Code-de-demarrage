@@ -1,12 +1,32 @@
-#ifndef SMART_ESP_UTILS_H
-#define SMART_ESP_UTILS_H
+#ifndef SMART_ESP32_UTILS_H
+#define SMART_ESP32_UTILS_H
 
 #include <WiFi.h>
 #include <AsyncTCP.h>
 #include <ESPAsyncWebServer.h>
+#include <ArduinoJson.h>
 
 /* ----------- WebSocket Global ----------- */
 AsyncWebSocket ws("/ws");
+
+/* ----------- Structure de données ----------- */
+struct AutoUpdatePayload {
+  String ecran1 = "";
+  String ecran2 = "";
+  String ecran3 = "";
+  String ecran4 = "";
+  float indicateur1 = 0.0;
+  float indicateur2 = 0.0;
+  float indicateur3 = 0.0;
+  float indicateur4 = 0.0;
+  String bulb1 = "";
+  String bulb2 = "";
+  String bulb3 = "";
+  String bulb4 = "";
+  String notif = "false";
+  String ia = "false";
+  String statusMessage = "";
+};
 
 /* ----------- Connexion Wi-Fi ----------- */
 void connectToWiFi(const char* ssid, const char* password) {
@@ -54,6 +74,45 @@ void setupWebSocket(AsyncWebServer& server, String* lastCommandPtr) {
   });
   server.addHandler(&ws);
   server.begin();
+}
+
+/* ----------- Fonction d’envoi Auto-Update ----------- */
+void sendAutoUpdate(const AutoUpdatePayload& payload) {
+  StaticJsonDocument<512> doc;
+
+  doc["Ecran1"] = payload.ecran1.isEmpty() ? String(millis()) : payload.ecran1;
+  doc["Ecran2"] = payload.ecran2;
+  doc["Ecran3"] = payload.ecran3;
+  doc["Ecran4"] = payload.ecran4;
+
+  doc["Indicateur1"] = payload.indicateur1;
+  doc["Indicateur2"] = payload.indicateur2;
+  doc["Indicateur3"] = payload.indicateur3;
+  doc["Indicateur4"] = payload.indicateur4;
+
+  doc["Bulb1"] = payload.bulb1;
+  doc["Bulb2"] = payload.bulb2;
+  doc["Bulb3"] = payload.bulb3;
+  doc["Bulb4"] = payload.bulb4;
+
+  doc["notif"] = payload.notif;
+  doc["AI"] = payload.ia;
+  doc["message"] = payload.statusMessage;
+
+  // Infos système fixes
+  doc["status"] = "auto-update";
+  doc["Wifi"] = WiFi.SSID();
+  doc["ip_address"] = WiFi.localIP().toString();
+  doc["mac_address"] = WiFi.macAddress();
+  doc["signal_strength"] = WiFi.RSSI();
+  doc["gateway_ip"] = WiFi.gatewayIP().toString();
+  doc["free_memory"] = ESP.getFreeHeap();
+  doc["flash_memory"] = ESP.getFlashChipSize();
+
+  String output;
+  serializeJson(doc, output);
+  ws.textAll(output);
+  Serial.println("🔄 Mise à jour envoyée via AutoUpdatePayload");
 }
 
 #endif
