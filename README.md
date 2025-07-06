@@ -3,10 +3,16 @@ Version optimisée pour ESP32 du projet SmartESP. Très léger, facile à compre
 
 
 📌 Étapes pour ajouter le support ESP32 dans Arduino IDE :
+
+
 1- Ouvre Arduino IDE.
+
 2- Va dans Fichier > Préférences (ou Arduino > Preferences sur Mac).
+
 3- Dans le champ "URL de gestionnaire de cartes supplémentaires", colle cette URL :
+
 https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+
 4-Clique sur OK.
 
 
