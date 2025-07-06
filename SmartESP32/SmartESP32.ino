@@ -1,4 +1,7 @@
 #include "SmartESP32Utils.h"
+#include <WiFi.h>
+#include <AsyncTCP.h>
+#include <ESPAsyncWebServer.h>
 
 const char* ssid = "N1";
 const char* password = "yannyann";
