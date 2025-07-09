@@ -61,16 +61,40 @@ Clique sur "Installer" pour esp32 by Espressif Systems
 
 
 
+Résumé rapide des mots-clés à chercher  dans le Library Manager :
 
 
-❗ Problèmes fréquents  sur  certain appareil :
+
+
+
+AsyncTCP
+<img width="722" alt="image" src="https://github.com/user-attachments/assets/7b8a348e-56bc-4d15-b344-f21e63189d8a" />
+
+
+
+ESPAsyncWebServer
+<img width="571" alt="image" src="https://github.com/user-attachments/assets/1f289ea5-6050-44e3-8135-16a363a153fa" />
+
+
+
+ArduinoJson
+<img width="571" alt="image" src="https://github.com/user-attachments/assets/1b687e3f-8c4f-4dc6-b3b2-a03bfd9e2562" />
+
+
+
+
+
+
+
+
+
+
+
+Félicitation 🤗🤗🤗🤗🤗🤗🤗🤗😎 !
+
+
+❗ Problèmes fréquents  possible sur   certain appareil :
 Si le port n’apparaît pas → installe le pilote CH340  en  ligne ou sur  le  site  de smart ESP
-
-
-
-
-
-
 
 <img width="728" alt="image" src="https://github.com/user-attachments/assets/62a67a7a-b813-49b2-ad73-6569f1df73dd" />
 
