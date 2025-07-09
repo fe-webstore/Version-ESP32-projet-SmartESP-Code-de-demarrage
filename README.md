@@ -13,12 +13,75 @@ Version optimisée pour ESP32 du projet SmartESP. Très léger, facile à compre
 
 https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
 
-4-Clique sur OK.
+      
+<img width="741" alt="Capture d’écran 2025-07-09 210622" src="https://github.com/user-attachments/assets/44dc79c7-25e2-4c02-a6f2-d609088ace32" />
+
+   b -  colle cette URL   : https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
 
 
-<img width="821" alt="Capture d’écran 2025-07-06 132218" src="https://github.com/user-attachments/assets/5441f76d-f4b3-49ea-91c5-172d660b7ddd" />
+<img width="635" alt="image" src="https://github.com/user-attachments/assets/88575d40-b67c-4a37-81c5-3198f74b289a" />
 
-5-
+   c-   Clique sur OK.
 
-<img width="223" alt="Capture d’écran 2025-07-06 133034" src="https://github.com/user-attachments/assets/37b0ebf5-a8bf-4424-ad19-4acf84db4361" />
+
+   
+4- Va dans Outils → Type de carte → Gestionnaire de cartes…
+
+Dans la barre de recherche, tape : ESP8266
+
+Clique sur "Installer" pour esp8266 by ESP8266 Community
+
+
+
+
+
+
+<img width="605" alt="Screenshot 2025-07-09 203622" src="https://github.com/user-attachments/assets/4c1950e4-cb54-4ab3-ba94-e83af8c2b15e" />
+
+
+
+
+
+
+5-   Une fois l'installation terminée branche ta cart et  verifie le com  et sélèctionne le :
+
+
+
+<img width="910" alt="image" src="https://github.com/user-attachments/assets/4d1a8300-7a5e-40ba-9419-aed0b63e7281" />
+
+
+
+
+6 -   Ensuite recherche et choisis ta carte selon ton modèle  ESP32 Dev Module  pour  la  plus part :
+
+
+
+<img width="910" alt="image" src="https://github.com/user-attachments/assets/84491aa3-3a3f-4ddb-8fea-f2518c28895a" />
+
+
+
+
+
+
+❗ Problèmes fréquents  sur  certain appareil :
+Si le port n’apparaît pas → installe le pilote CH340  en  ligne ou sur  le  site  de smart ESP
+
+
+
+
+
+
+
+<img width="728" alt="image" src="https://github.com/user-attachments/assets/62a67a7a-b813-49b2-ad73-6569f1df73dd" />
+
+
+
+
+
+
+
+
+   
+
+
 
