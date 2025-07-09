@@ -29,14 +29,14 @@ https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32
 
 Dans la barre de recherche, tape : ESP8266
 
-Clique sur "Installer" pour esp8266 by ESP8266 Community
+Clique sur "Installer" pour esp32 by Espressif Systems
 
 
 
 
 
+<img width="677" alt="Screenshot 2025-07-09 212734" src="https://github.com/user-attachments/assets/d3eee7e2-867b-4e05-b6a7-cae0fca39fc8" />
 
-<img width="605" alt="Screenshot 2025-07-09 203622" src="https://github.com/user-attachments/assets/4c1950e4-cb54-4ab3-ba94-e83af8c2b15e" />
 
 
 
