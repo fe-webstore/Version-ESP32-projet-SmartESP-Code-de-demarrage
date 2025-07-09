@@ -68,16 +68,26 @@ Résumé rapide des mots-clés à chercher  dans le Library Manager :
 
 
 AsyncTCP
+
+
+
 <img width="722" alt="image" src="https://github.com/user-attachments/assets/7b8a348e-56bc-4d15-b344-f21e63189d8a" />
 
 
 
 ESPAsyncWebServer
+
+
+
 <img width="571" alt="image" src="https://github.com/user-attachments/assets/1f289ea5-6050-44e3-8135-16a363a153fa" />
 
 
 
 ArduinoJson
+
+
+
+
 <img width="571" alt="image" src="https://github.com/user-attachments/assets/1b687e3f-8c4f-4dc6-b3b2-a03bfd9e2562" />
 
 
