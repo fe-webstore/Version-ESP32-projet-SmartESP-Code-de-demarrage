@@ -27,7 +27,7 @@ https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32
    
 4- Va dans Outils → Type de carte → Gestionnaire de cartes…
 
-Dans la barre de recherche, tape : ESP8266
+Dans la barre de recherche, tape : ESP32
 
 Clique sur "Installer" pour esp32 by Espressif Systems
 
