@@ -29,15 +29,14 @@ void Smartcommande() {
     if (lastCommand == "on") {
       digitalWrite(23, HIGH);
       payload.bulb1 = "true";
-      payload.ia = "OK, j’ai allumé la LED";
       payload.notif = "LED ON 💡";
     } else if (lastCommand == "off") {
       digitalWrite(23, LOW);
       payload.bulb1 = "false";
-      payload.ia = "LED éteinte";
+     
       payload.notif = "LED OFF ❌";
     } else {
-      payload.ia = "false";
+     
       payload.notif = "false";
     }
 
