@@ -5,16 +5,17 @@
 #include <AsyncTCP.h>
 #include <ESPAsyncWebServer.h>
 #include <ArduinoJson.h>
+#include <HTTPClient.h>
 
-/* ----------- WebSocket Global ----------- */
 AsyncWebSocket ws("/ws");
 
-/* ----------- Structure de données ----------- */
 struct AutoUpdatePayload {
   String ecran1 = "";
   String ecran2 = "";
   String ecran3 = "";
   String ecran4 = "";
+  String ecran5 = "";
+  String ecran6 = "";
   float indicateur1 = 0.0;
   float indicateur2 = 0.0;
   float indicateur3 = 0.0;
@@ -25,10 +26,10 @@ struct AutoUpdatePayload {
   String bulb4 = "";
   String notif = "false";
   String ia = "false";
+  String ac = "";
   String statusMessage = "";
 };
 
-/* ----------- Connexion Wi-Fi ----------- */
 void connectToWiFi(const char* ssid, const char* password) {
   WiFi.begin(ssid, password);
   Serial.print("Connexion au WiFi ..");
@@ -39,7 +40,6 @@ void connectToWiFi(const char* ssid, const char* password) {
   Serial.println(WiFi.localIP());
 }
 
-/* ----------- Événement WebSocket ----------- */
 void onWebSocketEvent(
   AsyncWebSocket* server,
   AsyncWebSocketClient* client,
@@ -47,8 +47,7 @@ void onWebSocketEvent(
   void* arg,
   uint8_t* data,
   size_t len,
-  String* lastCommandPtr
-) {
+  String* lastCommandPtr) {
   switch (type) {
     case WS_EVT_CONNECT:
       Serial.printf("Client WebSocket #%u connecté depuis %s\n", client->id(), client->remoteIP().toString().c_str());
@@ -67,7 +66,6 @@ void onWebSocketEvent(
   }
 }
 
-/* ----------- Initialisation WebSocket ----------- */
 void setupWebSocket(AsyncWebServer& server, String* lastCommandPtr) {
   ws.onEvent([lastCommandPtr](AsyncWebSocket* server, AsyncWebSocketClient* client, AwsEventType type, void* arg, uint8_t* data, size_t len) {
     onWebSocketEvent(server, client, type, arg, data, len, lastCommandPtr);
@@ -76,7 +74,6 @@ void setupWebSocket(AsyncWebServer& server, String* lastCommandPtr) {
   server.begin();
 }
 
-/* ----------- Fonction d’envoi Auto-Update ----------- */
 void sendAutoUpdate(const AutoUpdatePayload& payload) {
   StaticJsonDocument<512> doc;
 
@@ -84,6 +81,8 @@ void sendAutoUpdate(const AutoUpdatePayload& payload) {
   doc["Ecran2"] = payload.ecran2;
   doc["Ecran3"] = payload.ecran3;
   doc["Ecran4"] = payload.ecran4;
+  doc["Ecran5"] = payload.ecran5;
+  doc["Ecran6"] = payload.ecran6;
 
   doc["Indicateur1"] = payload.indicateur1;
   doc["Indicateur2"] = payload.indicateur2;
@@ -97,9 +96,9 @@ void sendAutoUpdate(const AutoUpdatePayload& payload) {
 
   doc["notif"] = payload.notif;
   doc["AI"] = payload.ia;
+  doc["Audio"] = payload.ac;
   doc["message"] = payload.statusMessage;
 
-  // Infos système fixes
   doc["status"] = "auto-update";
   doc["Wifi"] = WiFi.SSID();
   doc["ip_address"] = WiFi.localIP().toString();
@@ -112,7 +111,43 @@ void sendAutoUpdate(const AutoUpdatePayload& payload) {
   String output;
   serializeJson(doc, output);
   ws.textAll(output);
-  Serial.println("🔄 Mise à jour envoyée via AutoUpdatePayload");
 }
+
+void processCommandIfNeeded(String& lastCommand, AutoUpdatePayload& payload) {
+  if (!lastCommand.isEmpty()) {
+    sendAutoUpdate(payload);
+    payload.notif = "false";
+    payload.ia = "false";
+    payload.ac = "";
+    lastCommand = "";
+  }
+}
+
+
+
+void sendEmail(String email, String subject, String message) {
+  if (WiFi.status() != WL_CONNECTED) {
+    Serial.println("WiFi non connecté");
+    return;
+  }
+
+  HTTPClient http;
+
+  String url = "https://script.google.com/macros/s/AKfycbwYkg3mOneVbI7umotIWl5-_AJNOMRte1UMSzCZ5758GzLc74cltNjeORuedDbfRNXh/exec"; // 🔁 remplace par ton URL Apps Script
+  String postData = "email=" + email + "&subject=" + subject + "&message=" + message;
+
+  http.begin(url);
+  http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+
+  int httpCode = http.POST(postData);
+  String response = http.getString();
+
+  Serial.print("Code HTTP : ");
+  Serial.println(httpCode);
+  Serial.println("Réponse du serveur : " + response);
+
+  http.end();
+}
+
 
 #endif
