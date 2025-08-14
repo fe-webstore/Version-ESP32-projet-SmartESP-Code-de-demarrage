@@ -12,45 +12,60 @@ AutoUpdatePayload payload;
 unsigned long lastUpdateTime = 0;
 const unsigned long updateInterval = 500;
 
+
+
+const int prsens = 4 ; 
+const int light = 18 ;
+const int led = 21 ;
+
+// ------- Variables lecture capteurs --------
+
 void setup() {
   Serial.begin(115200);
   connectToWiFi(ssid, password);
   setupWebSocket(server, &lastCommand);
-  pinMode(23, OUTPUT);  // Ex: GPIO23 (ESP32) au lieu de D1
+
+  pinMode(prsens , INPUT);
+    pinMode(light , OUTPUT);
+     pinMode(led , OUTPUT);
+
+  
 }
 
 void loop() {
-  Smartcommande();
+
+  if (lastCommand.indexOf("tg1on") != -1  ) {
+   
+   digitalWrite(light, HIGH);
+ 
+
+  } else  if (lastCommand.indexOf("tg1off") != -1)  {
+       digitalWrite(light, LOW);
+
+
+
+  }
+
   Autoupdate();
 }
 
-void Smartcommande() {
-  if (!lastCommand.isEmpty()) {
-    if (lastCommand == "on") {
-      digitalWrite(23, HIGH);
-      payload.bulb1 = "true";
-      payload.notif = "LED ON 💡";
-    } else if (lastCommand == "off") {
-      digitalWrite(23, LOW);
-      payload.bulb1 = "false";
-     
-      payload.notif = "LED OFF ❌";
-    } else {
-     
-      payload.notif = "false";
-    }
 
-    lastCommand = "";
+
+
+
+void Autoupdate() {
+  
+ processCommandIfNeeded(lastCommand, payload);
+ 
+  if (millis() - lastUpdateTime > updateInterval) {
+   
+
+      
     sendAutoUpdate(payload);
     payload.notif = "false";
     payload.ia = "false";
-  }
-}
+    payload.ac = "";
 
-void Autoupdate() {
-  if (millis() - lastUpdateTime > updateInterval) {
-    payload.ecran1 = String(millis());
-    sendAutoUpdate(payload);
     lastUpdateTime = millis();
   }
 }
